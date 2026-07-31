@@ -18,6 +18,7 @@ public sealed class NotificationComposerTests
         Assert.Contains($"Description: {new string('a', 87)}...", dueSoonNotification);
         Assert.DoesNotContain($"Description: {description}", createdNotification);
         Assert.DoesNotContain($"Description: {description}", dueSoonNotification);
+    }
 
     [Fact]
     public void Notifications_omit_due_date_when_due_date_is_null()
