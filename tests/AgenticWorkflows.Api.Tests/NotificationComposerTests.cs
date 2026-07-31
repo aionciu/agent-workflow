@@ -11,11 +11,13 @@ public sealed class NotificationComposerTests
         var description = new string('a', 91);
         var item = CreateWorkItem(description: description);
 
-        var notification = NotificationComposer.BuildCreatedNotification(item);
+        var createdNotification = NotificationComposer.BuildCreatedNotification(item);
+        var dueSoonNotification = NotificationComposer.BuildDueSoonNotification(item);
 
-        Assert.Contains($"Description: {new string('a', 87)}...", notification);
-        Assert.DoesNotContain($"Description: {description}", notification);
-    }
+        Assert.Contains($"Description: {new string('a', 87)}...", createdNotification);
+        Assert.Contains($"Description: {new string('a', 87)}...", dueSoonNotification);
+        Assert.DoesNotContain($"Description: {description}", createdNotification);
+        Assert.DoesNotContain($"Description: {description}", dueSoonNotification);
 
     [Fact]
     public void Notifications_omit_due_date_when_due_date_is_null()
