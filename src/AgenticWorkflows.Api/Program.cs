@@ -41,6 +41,13 @@ workItems.MapPost("", (CreateWorkItemRequest request, WorkItemService service) =
 workItems.MapGet("/summary", (WorkItemService service) => Results.Ok(service.GetSummary()))
     .WithName("GetWorkItemSummary");
 
+workItems.MapGet("/{id:guid}", (Guid id, WorkItemService service) =>
+    {
+        var item = service.Find(id);
+        return item is null ? Results.NotFound() : Results.Ok(item);
+    })
+    .WithName("GetWorkItem");
+
 workItems.MapGet("/{id:guid}/notifications", (Guid id, WorkItemService service) =>
     {
         var item = service.Find(id);
